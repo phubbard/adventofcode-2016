@@ -20,6 +20,7 @@ class DayOne():
         self.compass = ['N', 'E', 'S', 'W']
         self.addmap = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
+        # Initial state
         self.orientation = 0 # index into compass array
         self.coordinates = {'x': 0, 'y': 0}
 
@@ -38,16 +39,11 @@ class DayOne():
                 self.orientation = 3
 
 
-    def _doall(self):
-        self.multimove(MOVES)
-        log.info('Final distance: ' + str(self.distance()))
-
-
     def move(self, move):
         # eg R2
         rel_direction = move[0]
         distance = int(move[1:])
-        log.info('Move ' + rel_direction + ' dist ' + str(distance))
+        log.debug('Move ' + rel_direction + ' dist ' + str(distance))
 
         log.debug('before ' + str(self))
 
@@ -70,4 +66,5 @@ class DayOne():
 
 if __name__ == '__main__':
     d1 = DayOne()
-    d1._doall()
+    d1.multimove(MOVES)
+    log.info(d1)
