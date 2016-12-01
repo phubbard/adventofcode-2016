@@ -65,5 +65,6 @@ class DayOne():
 
 
 if __name__ == '__main__':
-    d1 = DayOne().multimove(MOVES)
+    d1 = DayOne()
+    d1.multimove(MOVES)
     log.info(d1)
