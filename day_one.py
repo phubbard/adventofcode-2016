@@ -16,24 +16,38 @@ log = logging.getLogger('day1')
 
 class DayOne():
 
-    compass = ['N', 'E', 'S', 'W']
+    self.compass = ['N', 'E', 'S', 'W']
 
     def __init__(self):
         self.data = MOVES.split(', ')
-        self.orientation = 'N'
+        self.orientation = 0 # index into compass array
         self.coordinates = {'x': 0, 'y': 0}
 
         log.debug('Initialized ' + str(len(self.data)) + ' moves')
+
+
+    def _turn(self, direction):
+        if direction == 'R':
+            self.orientation = ((self.orientation + 1) % len(self.compass))
+        else:
+            if self.orientation > 0:
+                self.orientation -= 1;
+            else:
+                self.orientation = 3;
+
 
     def move(self, move):
         # eg R2
         rel_direction = move[0]
         distance = move[1]
 
+        self._turn(rel_direction)
+
 
 
     def distance(self):
-        return 0 # FIXME
+        return self.coordinates['x'] + self.coordinates['y']
+
 
     def multimove(self, moves_string):
         pass
