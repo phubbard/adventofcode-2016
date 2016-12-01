@@ -7,7 +7,6 @@ pfh 12/1/16
 
 
 import unittest
-import random
 from day_one import DayOne
 
 
@@ -15,12 +14,6 @@ class TestDayOne(unittest.TestCase):
 
     def setUp(self):
         self.d1 = DayOne()
-
-    def tearDown(self):
-        pass
-
-    def test_data(self):
-        pass
 
     def test_one(self):
         moves = "R2, L3"
@@ -36,6 +29,16 @@ class TestDayOne(unittest.TestCase):
         moves = "R5, L5, R5, R3"
         self.d1.multimove(moves)
         self.assertEqual(self.d1.distance(), 12)
+
+    def test_neg(self):
+        moves = "R-1"
+        self.d1.multimove(moves)
+        self.assertEqual(self.d1.distance(), 1)
+
+    def test_single(self):
+        moves = 'L1'
+        self.d1.multimove(moves)
+        self.assertEqual(self.d1.distance(), 1)
 
 
 if __name__ == '__main__':
