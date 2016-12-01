@@ -36,3 +36,7 @@ class TestDayOne(unittest.TestCase):
         moves = "R5, L5, R5, R3"
         self.d1.multimove(moves)
         self.assertEqual(self.d1.distance(), 12)
+
+
+if __name__ == '__main__':
+    unittest.main()

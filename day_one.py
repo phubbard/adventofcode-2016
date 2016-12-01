@@ -16,14 +16,16 @@ log = logging.getLogger('day1')
 
 class DayOne():
 
-    self.compass = ['N', 'E', 'S', 'W']
-
     def __init__(self):
-        self.data = MOVES.split(', ')
+        self.compass = ['N', 'E', 'S', 'W']
+        self.addmap = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
         self.orientation = 0 # index into compass array
         self.coordinates = {'x': 0, 'y': 0}
 
-        log.debug('Initialized ' + str(len(self.data)) + ' moves')
+
+    def __repr__(self):
+        return '(' + str(self.coordinates['x']) + ',' + str(self.coordinates['y']) + ') facing ' + self.compass[self.orientation] + ' distance ' + str(self.distance())
 
 
     def _turn(self, direction):
@@ -31,23 +33,41 @@ class DayOne():
             self.orientation = ((self.orientation + 1) % len(self.compass))
         else:
             if self.orientation > 0:
-                self.orientation -= 1;
+                self.orientation -= 1
             else:
-                self.orientation = 3;
+                self.orientation = 3
+
+
+    def _doall(self):
+        self.multimove(MOVES)
+        log.info('Final distance: ' + str(self.distance()))
 
 
     def move(self, move):
         # eg R2
         rel_direction = move[0]
-        distance = move[1]
+        distance = int(move[1:])
+        log.info('Move ' + rel_direction + ' dist ' + str(distance))
+
+        log.debug('before ' + str(self))
 
         self._turn(rel_direction)
 
+        self.coordinates['x'] += (self.addmap[self.orientation][0] * distance)
+        self.coordinates['y'] += (self.addmap[self.orientation][1] * distance)
 
+        log.debug('after ' + str(self))
 
     def distance(self):
-        return self.coordinates['x'] + self.coordinates['y']
+        return abs(self.coordinates['x']) + abs(self.coordinates['y'])
 
 
     def multimove(self, moves_string):
-        pass
+        move_array = moves_string.split(', ')
+        for move in move_array:
+            self.move(move)
+
+
+if __name__ == '__main__':
+    d1 = DayOne()
+    d1._doall()
